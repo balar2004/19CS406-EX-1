@@ -22,13 +22,33 @@ To write a python program to perform stop and wait protocol
 7. Stop.
 # PROGRAM:
 # CLIENT:
-
+```
+import socket
+s=socket.socket()
+s.bind(('localhost',800))
+s.listen(5)
+c,addr=s.accept()
+address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"};
+while True:
+    ip=c.recv(1024).decode()
+    try:
+        c.send(address[ip].encode())
+    except KeyError:
+        c.send("Not Found".encode())
+```
 # SERVER:
-
+```
+import socket
+s=socket.socket()
+s.connect(('localhost',800))
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("acknowledge recived from the server".encode())
+```
 # OUTPUT:
 # CLIENT SIDE:
-
+![Client 2](https://github.com/balar2004/19CS406-EX-1/assets/118791778/2706cc22-6a70-46db-b907-11f7362367a7)
 # SERVER SIDE:
-
+![Server 2](https://github.com/balar2004/19CS406-EX-1/assets/118791778/8ecd4b16-bf99-44e7-b9f1-d0996ec93f9f)
 # RESULT:
 Thus, python program to perform stop and wait protocol was successfully executed.
